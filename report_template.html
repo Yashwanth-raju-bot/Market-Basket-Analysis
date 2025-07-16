@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Market Basket Analysis Report</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h2 { color: #2c3e50; }
+        table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; }
+        th { background-color: #f4f6f8; }
+        img { max-width: 100%; height: auto; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+
+<h1>Market Basket Analysis Report</h1>
+
+<h2>Top 20 Items</h2>
+<img src="data:image/png;base64,{{ top_item_plot }}" alt="Top 20 Items">
+
+<h2>Transactions by Hour</h2>
+<img src="data:image/png;base64,{{ hourly_plot }}" alt="Transactions by Hour">
+
+<h2>Top 10 Association Rules by Confidence</h2>
+<img src="data:image/png;base64,{{ top10_plot }}" alt="Top 10 Rules by Confidence">
+
+<h2>Lift vs Confidence Scatter Plot</h2>
+<img src="data:image/png;base64,{{ scatter_plot }}" alt="Lift vs Confidence Scatter">
+
+<h2>Top 10 Rules Table</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Antecedents</th>
+            <th>Consequents</th>
+            <th>Support</th>
+            <th>Confidence</th>
+            <th>Lift</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in rules_table %}
+        <tr>
+            <td>{{ row['antecedents'] }}</td>
+            <td>{{ row['consequents'] }}</td>
+            <td>{{ "%.4f"|format(row['support']) }}</td>
+            <td>{{ "%.4f"|format(row['confidence']) }}</td>
+            <td>{{ "%.4f"|format(row['lift']) }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+</body>
+</html>
